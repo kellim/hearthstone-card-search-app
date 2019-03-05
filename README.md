@@ -32,7 +32,9 @@ Future enhacements may include loading a deck in from a deck code supplied by th
 
 ## License
 
-Code is licensed under the MIT License. 
+Code is licensed under the MIT License.
+
+See [LICENSE](LICENSE)
 
 Note that if you use Blizzard trademarks in association with the code, it's up to you to follow their policies.
 
