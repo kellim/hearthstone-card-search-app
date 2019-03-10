@@ -8,8 +8,9 @@ _Progress: Will be implemented soon._
 
 ## Add/Update Card Data used by App
 
-Running `node get-card-json` should save data returned from the HearthstoneJSON API to a file that the main app will use. It should be run manually whenever the HeartstoneJSON 
-data is updated, likely soon after there's any kind of change to Hearthstone card(s).
+Run`node get-card-json` to save card data returned from the HearthstoneJSON API to `data\cards.json`. 
+
+It should be run manually whenever the HeartstoneJSON data is updated, likely soon after there's any kind of change to Hearthstone cards.
 
 ## Technologies Used
 
@@ -32,9 +33,7 @@ Future enhacements may include loading a deck in from a deck code supplied by th
 
 ## License
 
-Code is licensed under the MIT License.
-
-See [LICENSE](LICENSE)
+Code is licensed under the MIT License. 
 
 Note that if you use Blizzard trademarks in association with the code, it's up to you to follow their policies.
 
