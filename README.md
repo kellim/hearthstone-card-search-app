@@ -6,11 +6,35 @@ This app is currently in development, but once the MVP is complete, you'll be ab
 
 _Progress: Will be implemented soon._
 
+## Run App in Local Environment
+
+### Initial Setup
+
+Install dependencies:
+
+```
+npm install
+```
+
+### Run App
+Run app in dev mode (uses [nodemon](https://nodemon.io/) to restart server when files change. Press `Ctrl-C` to stop server):
+
+```
+npm run dev
+```
+
+Run app:
+
+```
+npm run start
+```
+
 ## Add/Update Card Data used by App
 
-Run`node get-card-json` to save card data returned from the HearthstoneJSON API to `data\cards.json`. 
+Run `npm run getCards` to save card data returned from the HearthstoneJSON API to `data\cards.json`. 
 
 It should be run manually whenever the HeartstoneJSON data is updated, likely soon after there's any kind of change to Hearthstone cards.
+
 
 ## Technologies Used
 

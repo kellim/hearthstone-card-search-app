@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "saveCardData": "node src/utils/get-card-json.js" 
+    "getCards": "node src/utils/get-cards.js" 
   },
   "keywords": [],
   "author": "",

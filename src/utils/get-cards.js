@@ -8,7 +8,7 @@ const axios = require('axios')
 
 // This API doesn't require a key, and you can only retrieve all the cards at once. 
 const cardUrl = 'https://api.hearthstonejson.com/v1/latest/enUS/cards.collectible.json'
-const dataDir = path.join(__dirname, '/data')
+const dataDir = path.join(__dirname, '../../data')
 
  // Get card data from HearthstoneJSON API
 axios.get(cardUrl).then((response) => {

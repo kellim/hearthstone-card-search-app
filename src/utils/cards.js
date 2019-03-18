@@ -16,7 +16,6 @@ const getCards = async () => {
     return JSON.parse(cards)
 }
 
-
 module.exports = {
     getCards
 }
