@@ -1,0 +1,29 @@
+<h1>Unofficial HearthStone Card App</h1>
+
+<form id="search" role="search">
+  <label for="card-search-input">Search for Cards</label>
+  <input type="search" id="card-search-input" name="search">
+  <button type="submit">Search</button>
+  <ul>
+      {{#each matchingCards}}
+        <li><b>{{this.name}}</b> (<b>Cost:</b> {{this.cost}} 
+        {{#if this.attack}}
+          <b>Attack:</b> {{this.attack}}
+        {{/if}}
+        {{#if this.health}}
+           <b>Health:</b> {{this.health}}
+        {{/if}})
+          <ul>
+            <li><b>Rarity:</b> {{titleCaseWord this.rarity}}</li>
+            <li><b>Type:</b> {{titleCaseWord this.type}}</li>
+            {{#if this.race}}
+            <li><b>Tribe: </b>{{this.race}}</li>
+            {{/if}}
+            {{#if this.text}}
+              <li><b>Text:</b> {{this.text}}</li>
+            {{/if}}
+          </ul>
+        </li>
+      {{/each}}
+  </ul>
+</form>

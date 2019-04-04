@@ -1,6 +1,7 @@
-// Running this JS file should save data returned from the HearthstoneJSON API to 
-// a file that the main app will use. It should be run manually whenever the HeartstoneJSON 
-// data is updated, likely soon after there's any kind of change to Hearthstone card(s).
+// This module saves data returned from the HearthstoneJSON API to 
+// src/data/cards.json. It should be run manually whenever the HeartstoneJSON 
+// data is updated, likely soon after there's any kind of change to Hearthstone card(s)
+// including after new expansions come out.
 
 const fs = require('fs')
 const path = require('path')
@@ -15,6 +16,7 @@ axios.get(cardUrl).then((response) => {
   saveCardData(JSON.stringify(response.data))
 })
 
+// save cards data to data/cards.json
 const saveCardData = (cards) => {
   fs.writeFile(`${dataDir}/cards.json`, cards, (err) => {
     if (err) {
