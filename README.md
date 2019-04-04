@@ -29,12 +29,6 @@ Run app:
 npm run start
 ```
 
-## Add/Update Card Data used by App
-
-Run `npm run getCards` to save card data returned from the HearthstoneJSON API to `data\cards.json`. 
-
-It should be run manually whenever the HeartstoneJSON data is updated, likely soon after there's any kind of change to Hearthstone cards.
-
 ## Update Card Data and Card Sets
 
 ### Update Card Data
