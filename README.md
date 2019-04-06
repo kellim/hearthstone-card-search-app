@@ -33,7 +33,7 @@ npm run start
 
 ### Update Card Data
 
-After a new card expansion comes out (or any time you know of an update being made to cards) run`npm run getCards` to save card data from the HearthstoneJSON API to `data/cards.json`.
+After a new card expansion comes out (or any time you know of an update being made to cards) run `npm run getCards` to save card data from the HearthstoneJSON API to `data/cards.json`.
 
 ### Update Card Set Names
 
