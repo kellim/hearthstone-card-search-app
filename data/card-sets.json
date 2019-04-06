@@ -34,9 +34,7 @@
   {"code": "TROLL",
    "name": "Rastakhan's Rumble"},
   {"code": "UNGORO",
-   "name": "Journey to Un'goro"
-  },
-  { "code": "DALARAN",
-    "name": "Rise of Shadows"
-  }
+   "name": "Journey to Un'goro"},
+  {"code": "DALARAN",
+   "name": "Rise of Shadows"}
 ]
