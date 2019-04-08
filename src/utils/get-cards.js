@@ -27,13 +27,12 @@ const updateCards = (cards) => {
     card.setName = set[0].name
     if (card.text) {
       // strong and em should be only html tags in text from api, convert b and i tags to those
-      
       card.text = card.text.replace(/</g, '&lt;')
                            .replace(/>/g, '&gt;')
                            .replace(/&lt;b&gt;/g, '<strong>')
                            .replace(/&lt;\/b&gt;/g, '</strong>')
-                           .replace(/&lt;i&gt;|<i>/g, '<em>')
-                           .replace(/&lt;\/i&gt;|<\/i>/g, '</em>')
+                           .replace(/&lt;i&gt;<i>/g, '<em>')
+                           .replace(/&lt;\/i&gt;<\/i>/g, '</em>')
     }
   })
   return cards
