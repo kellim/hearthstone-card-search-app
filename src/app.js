@@ -38,7 +38,6 @@ try {
   const cardsFilePath = path.join(__dirname, '../data/cards.json')
   const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
   app.locals.cardsData = JSON.parse(cardsData)
-  console.log('Card data is in memory.')
 } catch {
   console.error('Error obtaining card data. Please fix and restart server.')
 }
@@ -60,7 +59,7 @@ app.get('', (req, res) => {
   res.render('index', {
     matchingCards,
     helpers: {
-      titleCaseWord: function(string) {return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase();}
+      titleCaseWord: (string) => string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
     }
   })
 })

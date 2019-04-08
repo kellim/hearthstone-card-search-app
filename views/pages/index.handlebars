@@ -18,10 +18,10 @@
             <li><b>Rarity: </b> {{titleCaseWord this.rarity}}</li>
             <li><b>Type: </b> {{titleCaseWord this.type}}</li>
             {{#if this.race}}
-            <li><b>Tribe: </b>{{this.race}}</li>
+            <li><b>Tribe: </b>{{titleCaseWord this.race}}</li>
             {{/if}}
             {{#if this.text}}
-              <li><b>Text: </b> {{this.text}}</li>
+              <li><b>Text: </b> {{{this.text}}}</li>
             {{/if}}
           </ul>
         </li>
