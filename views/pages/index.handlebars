@@ -4,6 +4,13 @@
   <label for="card-search-input">Search for Cards</label>
   <input type="search" id="card-search-input" name="search">
   <button type="submit">Search</button>
+</form>
+  <div class="results">
+    {{#each matchingCards}}
+      <img src="https://art.hearthstonejson.com/v1/render/latest/enUS/256x/{{this.id}}.png" alt="{{this.name}}" class="card-image">
+    {{/each}}
+</div>
+  {{!--
   <ul>
       {{#each matchingCards}}
         <li><b>{{this.name}}</b> (<b>Cost:</b> {{this.cost}} 
@@ -27,4 +34,4 @@
         </li>
       {{/each}}
   </ul>
-</form>
+  --}}

@@ -18,6 +18,7 @@ app.engine('handlebars', exphbs({
 }))
 
 app.set('view engine', 'handlebars');
+app.use(express.static(path.join(__dirname, '../public')))
 
 // Log message to console if there's a set that hasn't been added to data/card-sets.json yet. Sets have to be manually
 // added to that file.

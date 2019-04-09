@@ -1,0 +1,28 @@
+    
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  color: #484848;
+}
+
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+.card-image {
+  width: 256px;
+  height: 382px;
+}
