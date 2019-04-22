@@ -16,7 +16,16 @@ Install dependencies:
 npm install
 ```
 
+### Build
+
+This should be run anytime the client-side JavaScript (`public/js/app.js`) is updated. It will create `bundle.js` in the `public/js` folder. It is needed to make the npm package `slim-select` available to client-side code.
+
+```
+npm run build
+```
+
 ### Run App
+
 Run app in dev mode (uses [nodemon](https://nodemon.io/) to restart server when files change. Press `Ctrl-C` to stop server):
 
 ```

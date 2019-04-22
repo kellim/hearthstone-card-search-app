@@ -1,15 +1,35 @@
 <h1>Unofficial HearthStone Card App</h1>
-
-<form id="search" role="search">
-  <label for="card-search-input">Search for Cards</label>
-  <input type="search" id="card-search-input" name="search">
-  <button type="submit">Search</button>
-</form>
-  <div class="results">
-    {{#each matchingCards}}
-      <img src="https://art.hearthstonejson.com/v1/render/latest/enUS/256x/{{this.id}}.png" alt="{{this.name}}" class="card-image">
-    {{/each}}
+<div class="wrapper">
+  <div class="sidebar">
+    <label for="sets" class="input-title">Sets</label>
+    <select id="sets" multiple>
+      <optgroup label="Standard Sets (also Wild)">
+      {{#each standardSets}}
+        <option value={{this.code}}>{{this.name}}</option>
+      {{/each}}
+      </optgroup>
+      <optgroup label="Wild Only Sets">
+        {{#each wildSets}}
+          <option value={{this.code}}>{{this.name}}</option>
+        {{/each}}
+      </optgroup>
+    </select>
+  </div>
+  <div class="search-wrapper">
+    <form id="search" role="search">
+      <!-- <label for="card-search-input">Search for Cards</label> -->
+      <input type="search" id="card-search-input" class="search-input" name="search">
+      <button type="submit" class="search-button">Search</button>
+    </form>
+      <div class="results">
+        {{#each matchingCards}}
+          <img src="https://art.hearthstonejson.com/v1/render/latest/enUS/256x/{{this.id}}.png" alt="{{this.name}}" class="card-image">
+        {{/each}}
+    </div>
+  </div>
 </div>
+
+
   {{!--
   <ul>
       {{#each matchingCards}}

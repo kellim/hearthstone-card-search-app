@@ -10,7 +10,6 @@ const port = process.env.PORT || 3001
 
 // Setup Handlebars
 app.set('views', path.join(__dirname, '../views/pages'))
-// hbs.registerPartials(path.join(__dirname, 'views/partials'))
 
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
@@ -18,6 +17,9 @@ app.engine('handlebars', exphbs({
 }))
 
 app.set('view engine', 'handlebars');
+
+const slimSelectPath = path.join(__dirname, '../node_modules/slim-select/dist')
+app.use('/vendor', express.static(slimSelectPath))
 app.use(express.static(path.join(__dirname, '../public')))
 
 // Log message to console if there's a set that hasn't been added to data/card-sets.json yet. Sets have to be manually
@@ -43,6 +45,11 @@ try {
   console.error('Error obtaining card data. Please fix and restart server.')
 }
 
+const setsFilePath = path.join(__dirname, '../data/card-sets.json')
+const sets = JSON.parse(fs.readFileSync(setsFilePath, 'utf-8'))
+const standardSets = sets.filter(set => set.format === "standard")
+const wildSets = sets.filter(set => set.format === "wild")
+
 // TODO: Put into separate route file
 app.get('', (req, res) => {
   const searchTerm = req.query.search
@@ -58,6 +65,8 @@ app.get('', (req, res) => {
   })
 
   res.render('index', {
+    standardSets,
+    wildSets,
     matchingCards,
     helpers: {
       titleCaseWord: (string) => string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
