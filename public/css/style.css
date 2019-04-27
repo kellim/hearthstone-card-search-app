@@ -16,6 +16,10 @@ body {
   font-size: 1.8rem;
 }
 
+main {
+  min-height: calc(100vh - 4rem);
+}
+
 h1 {
   font-size: 2.3rem;
   margin-bottom: 2rem;
@@ -24,29 +28,31 @@ h1 {
 
 .wrapper {
   display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
 }
 
 .search-wrapper {
-  margin-left: 3rem;
-  margin-top: 2.6rem;
+  margin-top: 2rem;
+  flex-grow: 2;
+}
+
+.search-form {
+  display: flex;
 }
 
 .search-input {
   font-size: 1.6rem;
-  width: 60rem;
   padding: 4px;
   border-radius: 3px;
+  flex-grow: 2;
 }
 
 .search-button {
   font-size: 1.8rem;
   padding: 4px;
   border-radius: 3px;
-}
-
-.sidebar {
-  padding-left: 2rem;
-  width: 40rem;
+  margin-left: 1rem;
 }
 
 .input-title {
@@ -57,22 +63,67 @@ h1 {
 
 .results {
   display: flex;
+  justify-content: left;
   flex-wrap: wrap;
   list-style-type: none;
+  margin-top: 2rem;
 }
 
 .card-image {
-  width: 256px;
-  height: 382px;
+  width: 20rem;
+  height: 30rem;
+  /* Account for extra whitespace in card images from API */
+  margin-right: -1.5rem;
+  margin-left: -1.5rem;
+  margin-top: -2rem;
+  margin-bottom: -2rem;
+}
+
+.trademark-info {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 0 1em;
 }
 
 /* slim-select classes */
-
 .ss-main {
-  min-width: 25rem;
   margin: .5rem 0;
 }
 
 .ss-value-text {
   font-size: 1.2rem;
+}
+
+@media (min-width: 56.25em) {
+  main {
+    min-height: calc(100vh - 2rem);
+  }
+
+  .wrapper {
+    flex-direction: row;
+    /* margin: 0 2rem; */
+  }
+
+  .search-wrapper {
+    margin-top: 2.75rem;
+  }
+
+  .sidebar {
+    margin-right: 1rem;
+    width: 30rem;
+  }
+
+  .results {
+    margin-top: 3rem;
+  }
+}
+
+@media (min-width: 87.5em) {
+  .card-image {
+    width: 25.6rem;
+    height: 38.2rem;
+  }
+  .wrapper {
+    margin: 0 3rem;
+  }
 }

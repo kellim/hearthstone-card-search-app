@@ -2,10 +2,6 @@
 
 This app is currently in development, but once the MVP is complete, you'll be able to search Hearthstone® cards and filter by class, type, set, and rarity.
 
-## Search Hearthstone Cards
-
-_Progress: Will be implemented soon._
-
 ## Run App in Local Environment
 
 ### Initial Setup
@@ -18,7 +14,7 @@ npm install
 
 ### Build
 
-This should be run anytime the client-side JavaScript (`public/js/app.js`) is updated. It will create `bundle.js` in the `public/js` folder. It is needed to make the npm package `slim-select` available to client-side code.
+This should be run initially, and then anytime the client-side JavaScript (`public/js/app.js`) is updated. It will create `bundle.js` in the `public/js` folder. It is needed to make the npm package `slim-select` available to client-side code.
 
 ```
 npm run build
