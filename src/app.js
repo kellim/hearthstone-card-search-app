@@ -54,15 +54,18 @@ const wildSets = sets.filter(set => set.format === "wild")
 app.get('', (req, res) => {
   const searchTerm = req.query.search
   const searchKeys = ['race', 'name', 'text']    // string keys in card objects to search
-  // const searchKeyArrays = ['mechanics']     // array keys in card objects to search 
-  const matchingCards = !searchTerm ? '' : app.locals.cardsData.filter((card) => {
-    return searchKeys.some(key => {
-      if (card.hasOwnProperty(key)) {
-          return card[key].toLowerCase().includes(searchTerm.toLowerCase().trim())
-      }
-      return false          
+  // const searchKeyArrays = ['mechanics']     // array keys in card objects to search
+  let matchingCards = ''
+  if (searchTerm) {
+    matchingCards = app.locals.cardsData.filter((card) => {
+      return searchKeys.some(key => {
+        if (card.hasOwnProperty(key)) {
+            return card[key].toLowerCase().includes(searchTerm.toLowerCase().trim())
+        }
+        return false          
+      })
     })
-  })
+  } 
 
   res.render('index', {
     standardSets,
