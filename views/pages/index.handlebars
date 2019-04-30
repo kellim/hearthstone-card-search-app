@@ -5,12 +5,12 @@
     <select form="search" id="sets" name="sets" multiple>
       <optgroup label="Standard Sets (also Wild)">
       {{#each standardSets}}
-        <option value={{this.code}}>{{this.name}}</option>
+        <option value={{this.code}} {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
       {{/each}}
       </optgroup>
       <optgroup label="Wild Only Sets">
         {{#each wildSets}}
-          <option value={{this.code}}>{{this.name}}</option>
+          <option value={{this.code}} {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
         {{/each}}
       </optgroup>
     </select>

@@ -49,19 +49,36 @@ try {
 
 const setsFilePath = path.join(__dirname, '../data/card-sets.json')
 const sets = JSON.parse(fs.readFileSync(setsFilePath, 'utf-8'))
-const standardSets = sets.filter(set => set.format === "standard")
-const wildSets = sets.filter(set => set.format === "wild")
 
 // TODO: Put into separate route file
 app.get('/', (req, res) => {
   const searchTerm = req.cookies.search_term || ''
+  const selectedSets = req.cookies.selected_sets ? req.cookies.selected_sets.split('|') : ''
   res.clearCookie('search_term')
-  let matchingCards = ''
+  res.clearCookie('selected_sets')
+  let matchingCards = []
   const searchKeys = ['race', 'name', 'text']    // string keys in card objects to search
-  // const searchKeyArrays = ['mechanics']     // array keys in card objects to search
+  // const searchKeyArrays = ['mechanics']      // array keys in card objects to search
+
+    const wildSets = sets.filter(set => set.format === "wild")
+    wildSets.forEach(set => {
+      set.selected = selectedSets.includes(set.code) ? true : false
+    })
   
+   const standardSets = sets.filter(set => set.format === "standard")
+   standardSets.forEach(set => {
+    set.selected = selectedSets.includes(set.code) ? true : false
+  })
+
   if (searchTerm) {
-    matchingCards = app.locals.cardsData.filter((card) => {
+    matchingCards = app.locals.cardsData
+    // Filter for selected sets if any
+    if (selectedSets) { 
+      matchingCards = matchingCards.filter((card) => selectedSets.includes(card.set))
+    }
+
+    // Filter by search term
+    matchingCards = matchingCards.filter((card) => {
       return searchKeys.some(key => {
         if (card.hasOwnProperty(key)) {
             return card[key].toLowerCase().includes(searchTerm.toLowerCase().trim())
@@ -76,6 +93,7 @@ app.get('/', (req, res) => {
     wildSets,
     matchingCards,
     searchTerm,
+    selectedSets,
     helpers: {
       titleCaseWord: (string) => string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
     }
@@ -83,8 +101,11 @@ app.get('/', (req, res) => {
 })
 
 app.post('/submit', function(req, res) {
+  console.log('req.body', req.body) 
   const searchTerm = req.body.search;
+  const selectedSets = Array.isArray(req.body.sets) ? req.body.sets.join('|') : req.body.sets
   if (searchTerm) res.cookie('search_term', searchTerm, { maxAge: 60000, httpOnly: true })
+  if (selectedSets) res.cookie('selected_sets', selectedSets, { maxAge: 60000, httpOnly: true })
   res.redirect('/');
 });
 
