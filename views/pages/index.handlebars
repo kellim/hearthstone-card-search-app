@@ -2,7 +2,7 @@
 <div class="wrapper">
   <div class="sidebar">
     <label for="sets" class="input-title">Sets</label>
-    <select id="sets" multiple>
+    <select form="search" id="sets" name="sets" multiple>
       <optgroup label="Standard Sets (also Wild)">
       {{#each standardSets}}
         <option value={{this.code}}>{{this.name}}</option>
@@ -16,9 +16,9 @@
     </select>
   </div>
   <div class="search-wrapper">
-    <form id="search" role="search" class="search-form">
+    <form action="/submit" method="post" id="search" role="search" class="search-form">
       <!-- <label for="card-search-input">Search for Cards</label> -->
-      <input type="search" id="card-search-input" class="search-input" name="search">
+      <input type="search" id="card-search-input" class="search-input" name="search" value="{{searchTerm}}">
       <button type="submit" class="search-button">Search</button>
     </form>
       <div class="results">

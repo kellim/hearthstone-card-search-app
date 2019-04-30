@@ -2,8 +2,8 @@ const path = require('path')
 const fs = require('fs')
 const express = require('express')
 const exphbs = require('express-handlebars')
-// const bodyParser = require('body-parser')
-
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const app = express()
 
 const port = process.env.PORT || 3001
@@ -16,11 +16,13 @@ app.engine('handlebars', exphbs({
   layoutsDir: path.join(__dirname, '../views/layouts')
 }))
 
-app.set('view engine', 'handlebars');
+app.set('view engine', 'handlebars')
 
 const slimSelectPath = path.join(__dirname, '../node_modules/slim-select/dist')
 app.use('/vendor', express.static(slimSelectPath))
 app.use(express.static(path.join(__dirname, '../public')))
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(cookieParser())
 
 // Log message to console if there's a set that hasn't been added to data/card-sets.json yet. Sets have to be manually
 // added to that file.
@@ -51,11 +53,13 @@ const standardSets = sets.filter(set => set.format === "standard")
 const wildSets = sets.filter(set => set.format === "wild")
 
 // TODO: Put into separate route file
-app.get('', (req, res) => {
-  const searchTerm = req.query.search
+app.get('/', (req, res) => {
+  const searchTerm = req.cookies.search_term || ''
+  res.clearCookie('search_term')
+  let matchingCards = ''
   const searchKeys = ['race', 'name', 'text']    // string keys in card objects to search
   // const searchKeyArrays = ['mechanics']     // array keys in card objects to search
-  let matchingCards = ''
+  
   if (searchTerm) {
     matchingCards = app.locals.cardsData.filter((card) => {
       return searchKeys.some(key => {
@@ -65,17 +69,24 @@ app.get('', (req, res) => {
         return false          
       })
     })
-  } 
+  }
 
-  res.render('index', {
+   res.render('index', {
     standardSets,
     wildSets,
     matchingCards,
+    searchTerm,
     helpers: {
       titleCaseWord: (string) => string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
     }
   })
 })
+
+app.post('/submit', function(req, res) {
+  const searchTerm = req.body.search;
+  if (searchTerm) res.cookie('search_term', searchTerm, { maxAge: 60000, httpOnly: true })
+  res.redirect('/');
+});
 
 // This route is for testing purposes/reference, to be removed later
 app.get('/json', (req, res) => {

@@ -55,6 +55,14 @@ Example:
 
 Once any sets have been manually added, delete `data/card-sets-to-manually-add.json` so a message won't be logged about it when starting up the app.
 
+## Browser Compatibility
+
+IE is not currently supported.
+
+Known issues with IE:
+
+* Inputs on the sidebar do not work. The `form` attribute is used to associate inputs outside of the search form with the form. To add support for IE, either research and find an HTML 5 polyfill that supports the form attribute, or refactor to use hidden inputs in the search form that get updated with data from the sidebar inputs when the form is submitted. 
+
 ## Technologies Used
 
 * JavaScript

@@ -1,8 +1,7 @@
-// Make Node Module Packages available on the client side using browserify
-// Run npm run build after updating this file.
+// Run npm run build after updating this file to make slim-select package available on the client side using browserify.
+// For Each Select element in the html, add new SlimSelect with its id in this file.
 const SlimSelect = require('slim-select')
 
-// For Each Select element, add new SlimSelect with its id.
 new SlimSelect({
     select: '#sets'
 })
