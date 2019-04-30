@@ -34,7 +34,7 @@ h1 {
 
 .search-wrapper {
   margin-top: 2rem;
-  flex-grow: 2;
+  flex-grow: 1;
 }
 
 .search-form {
@@ -45,7 +45,7 @@ h1 {
   font-size: 1.6rem;
   padding: 4px;
   border-radius: 3px;
-  flex-grow: 2;
+  flex-grow: 1;
 }
 
 .search-button {
@@ -100,7 +100,7 @@ h1 {
 }
 
 .ss-value-text {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 @media (min-width: 56.25em) {
@@ -119,7 +119,10 @@ h1 {
 
   .sidebar {
     margin-right: 1rem;
-    width: 30rem;
+    /* If width only is used, it will shrink when there are 
+     * enough search results */
+    min-width: 25rem;
+    max-width: 25rem;
   }
 
   .results {
