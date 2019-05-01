@@ -119,10 +119,16 @@ h1 {
 
   .sidebar {
     margin-right: 1rem;
-    /* If width only is used, it will shrink when there are 
-     * enough search results */
-    min-width: 25rem;
-    max-width: 25rem;
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: 25rem;
+  }
+
+ select {
+    /* prevent FOUC - slim-select also hides it after its css loads */
+    /* Note that this assumes all selects are using slim-select */ 
+    /* It doesn't work as well using a class */
+    display: none;
   }
 
   .results {
