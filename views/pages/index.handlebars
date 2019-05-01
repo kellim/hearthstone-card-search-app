@@ -7,6 +7,12 @@
         <option value={{this.rarity}} {{#if this.selected}}selected{{/if}}>{{titleCaseWord this.rarity}}</option>
       {{/each}}
     </select>
+    <label for="types" class="input-title">Type</label>
+    <select form="search" id="types" name="types" multiple>
+      {{#each types}}
+        <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{titleCaseWord this.type}}</option>
+      {{/each}}
+    </select>
     <label for="sets" class="input-title">Sets</label>
     <select form="search" id="sets" name="sets" multiple>
       <optgroup label="Standard Sets (also Wild)">
