@@ -54,16 +54,22 @@ const sets = JSON.parse(fs.readFileSync(setsFilePath, 'utf-8'))
 app.get('/', (req, res) => {
   const searchTerm = req.cookies.search_term || ''
   const selectedSets = req.cookies.selected_sets ? req.cookies.selected_sets.split('|') : ''
+  const selectedRarities = req.cookies.selected_rarities ? req.cookies.selected_rarities.split('|') : ''
   res.clearCookie('search_term')
+  res.clearCookie('selected_rarities')
   res.clearCookie('selected_sets')
   let matchingCards = []
-  const searchKeys = ['race', 'name', 'text']    // string keys in card objects to search
+  const searchKeys = ['race', 'name', 'text', 'rarity']    // string keys in card objects to search
   // const searchKeyArrays = ['mechanics']      // array keys in card objects to search
-
-    const wildSets = sets.filter(set => set.format === "wild")
-    wildSets.forEach(set => {
-      set.selected = selectedSets.includes(set.code) ? true : false
-    })
+  const rarities = [{rarity: 'free'}, {rarity: 'common'}, {rarity:'rare'}, {rarity: 'epic'}, {rarity: 'legendary'}]
+  rarities.forEach(rarity => {
+    rarity.selected = selectedRarities.includes(rarity.rarity) ? true : false
+  })
+ 
+  const wildSets = sets.filter(set => set.format === "wild")
+  wildSets.forEach(set => {
+    set.selected = selectedSets.includes(set.code) ? true : false
+  })
   
    const standardSets = sets.filter(set => set.format === "standard")
    standardSets.forEach(set => {
@@ -72,10 +78,11 @@ app.get('/', (req, res) => {
 
   if (searchTerm) {
     matchingCards = app.locals.cardsData
-    // Filter for selected sets if any
-    if (selectedSets) { 
-      matchingCards = matchingCards.filter((card) => selectedSets.includes(card.set))
-    }
+    console.log('selectedRarities', selectedRarities)
+    // Apply sidebar filter only if a filter has a value
+    if (selectedSets) matchingCards = matchingCards.filter(card => selectedSets.includes(card.set))
+    if (selectedRarities) matchingCards = matchingCards.filter(card => selectedRarities.includes(card.rarity.toLowerCase()))
+
 
     // Filter by search term
     matchingCards = matchingCards.filter((card) => {
@@ -89,11 +96,11 @@ app.get('/', (req, res) => {
   }
 
    res.render('index', {
+    rarities,
     standardSets,
     wildSets,
     matchingCards,
     searchTerm,
-    selectedSets,
     helpers: {
       titleCaseWord: (string) => string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
     }
@@ -103,8 +110,10 @@ app.get('/', (req, res) => {
 app.post('/submit', function(req, res) {
   console.log('req.body', req.body) 
   const searchTerm = req.body.search;
+  const selectedRarities = Array.isArray(req.body.rarities) ? req.body.rarities.join('|') : req.body.rarities
   const selectedSets = Array.isArray(req.body.sets) ? req.body.sets.join('|') : req.body.sets
   if (searchTerm) res.cookie('search_term', searchTerm, { maxAge: 60000, httpOnly: true })
+  if (selectedRarities) res.cookie('selected_rarities', selectedRarities, { maxAge: 60000, httpOnly: true })
   if (selectedSets) res.cookie('selected_sets', selectedSets, { maxAge: 60000, httpOnly: true })
   res.redirect('/');
 });

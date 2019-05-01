@@ -5,3 +5,7 @@ const SlimSelect = require('slim-select')
 new SlimSelect({
     select: '#sets'
 })
+
+new SlimSelect({
+    select: '#rarities'
+})

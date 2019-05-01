@@ -1,6 +1,12 @@
 <h1>Unofficial HearthStone Card App</h1>
 <div class="wrapper">
   <div class="sidebar">
+    <label for="rarities" class="input-title">Rarity</label>
+    <select form="search" id="rarities" name="rarities" multiple>
+      {{#each rarities}}
+        <option value={{this.rarity}} {{#if this.selected}}selected{{/if}}>{{titleCaseWord this.rarity}}</option>
+      {{/each}}
+    </select>
     <label for="sets" class="input-title">Sets</label>
     <select form="search" id="sets" name="sets" multiple>
       <optgroup label="Standard Sets (also Wild)">
