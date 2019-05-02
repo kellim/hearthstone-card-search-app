@@ -32,6 +32,8 @@ h1 {
   margin: 0 1rem;
 }
 
+/* Search */ 
+
 .search-wrapper {
   margin-top: 2rem;
   flex-grow: 1;
@@ -53,12 +55,6 @@ h1 {
   padding: 4px;
   border-radius: 3px;
   margin-left: 1rem;
-}
-
-.input-title {
-  font-weight: bold;
-  font-size: 1.8rem;
-  text-align: center;
 }
 
 .results {
@@ -84,6 +80,26 @@ h1 {
   font-size: 1.2rem;
   margin: 0 1em;
 }
+
+/* Sidebar */
+
+.sidebar > label:not(:first-of-type) {
+  margin-top: 1rem;
+}
+
+.input-title {
+  font-weight: bold;
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: .5rem;
+}
+
+select {
+  /* Lessens FOUC that occurs before slim-select loads */
+  /* display: none; */
+  visibility: hidden;
+}
+
 
 /* slim-select classes */
 
@@ -122,13 +138,6 @@ h1 {
     flex-shrink: 0;
     flex-grow: 0;
     flex-basis: 25rem;
-  }
-
- select {
-    /* prevent FOUC - slim-select also hides it after its css loads */
-    /* Note that this assumes all selects are using slim-select */ 
-    /* It doesn't work using a class */
-    display: none;
   }
 
   .results {

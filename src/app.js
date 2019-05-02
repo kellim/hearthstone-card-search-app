@@ -52,6 +52,7 @@ const sets = JSON.parse(fs.readFileSync(setsFilePath, 'utf-8'))
 
 // TODO: Put into separate route file
 app.get('/', (req, res) => {
+
   const searchTerm = req.cookies.search_term || ''
   const selectedSets = req.cookies.selected_sets ? req.cookies.selected_sets.split('|') : ''
   const selectedRarities = req.cookies.selected_rarities ? req.cookies.selected_rarities.split('|') : ''
@@ -71,7 +72,6 @@ app.get('/', (req, res) => {
   // Add selected property for selected items for each type of filter
   rarities.forEach(rarity => { rarity.selected = selectedRarities.includes(rarity.rarity) ? true : false })
   types.forEach(type => { type.selected = selectedTypes.includes(type.type) ? true : false })
-  // types.forEach(type => { type.selected = selectedTypes.includes(types.type) ? true : false })
   wildSets.forEach(set => { set.selected = selectedSets.includes(set.code) ? true : false })
   standardSets.forEach(set => { set.selected = selectedSets.includes(set.code) ? true : false })
 
