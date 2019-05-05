@@ -8,58 +8,64 @@ const setsFilePath = path.join(__dirname, '../../data/card-sets.json');
 const sets = JSON.parse(fs.readFileSync(setsFilePath, 'utf-8'));
 
 router.get('/', (req, res) => {
-    const searchTerm = req.cookies.search_term || '';
-    const selectedSets = req.cookies.selected_sets ? req.cookies.selected_sets.split('|') : '';
-    const selectedRarities = req.cookies.selected_rarities ? req.cookies.selected_rarities.split('|') : '';
-    const selectedTypes = req.cookies.selected_types ? req.cookies.selected_types.split('|') : '';
-    res.clearCookie('search_term');
-    res.clearCookie('selected_rarities');
-    res.clearCookie('selected_types');
-    res.clearCookie('selected_sets');
-    let matchingCards = [];
-    const searchKeys = ['race', 'name', 'text', 'rarity'];    // string keys in card objects to search
-    // const searchKeyArrays = ['mechanics']      // array keys in card objects to search
-    const rarities = [{rarity: 'free'}, {rarity: 'common'}, {rarity:'rare'}, {rarity: 'epic'}, {rarity: 'legendary'}];
-    const types = [{type: 'minion'}, {type: 'spell'}, {type: 'weapon'}];
-    const wildSets = sets.filter(set => set.format === "wild");
-    const standardSets = sets.filter(set => set.format === "standard");
-  
-    // Add selected property for selected items for each type of filter
-    rarities.forEach(rarity => { rarity.selected = selectedRarities.includes(rarity.rarity) ? true : false });
-    types.forEach(type => { type.selected = selectedTypes.includes(type.type) ? true : false });
-    wildSets.forEach(set => { set.selected = selectedSets.includes(set.code) ? true : false });
-    standardSets.forEach(set => { set.selected = selectedSets.includes(set.code) ? true : false });
-  
-    if (searchTerm) {
-      matchingCards = req.app.locals.cardsData;
-      // Apply sidebar filter only if a filter has a value
-      if (selectedSets) matchingCards = matchingCards.filter(card => selectedSets.includes(card.set));
-      if (selectedRarities) matchingCards = matchingCards.filter(card => selectedRarities.includes(card.rarity.toLowerCase()));
-      if (selectedTypes) matchingCards = matchingCards.filter(card => selectedTypes.includes(card.type.toLowerCase()));
-  
-      // Filter by search term
-      matchingCards = matchingCards.filter((card) => {
-        return searchKeys.some(key => {
-          if (card.hasOwnProperty(key)) {
-              return card[key].toLowerCase().includes(searchTerm.toLowerCase().trim());
-          }
-          return false;        
-        })
-      })
-    }
-  
-     res.render('index', {
-      rarities,
-      types,
-      standardSets,
-      wildSets,
-      matchingCards,
-      searchTerm,
-      helpers: {
-        titleCaseWord: (string) => string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
-      }
+  let matchingCards = req.app.locals.cardsData;
+  const searchKeys = ['race', 'name', 'text', 'rarity'];
+  const filters = {
+    rarities: [{type: 'free'}, {type: 'common'}, {type:'rare'}, {type: 'epic'}, {type: 'legendary'}],
+    types:  [{type: 'minion'}, {type: 'spell'}, {type: 'weapon'}],
+    sets: JSON.parse(JSON.stringify(sets))
+  };
+  const filterKeys = Object.keys(filters);
+
+  // Filter arrays have plural names, and will need to be converted to be singular to match individual card properties
+  const singularFilterNames = { rarities: 'rarity',
+                                types: 'type',
+                                sets: 'set' }
+
+  // Get search term from cookie and delete cookie
+  const searchTerm = req.cookies.search_term || '';
+  res.clearCookie('search_term');
+    
+     // Add selected property to filters based on selected items in cookies, then delete the cookies  
+  filterKeys.forEach(filterName => {
+    let selectedItems = [];
+    filters[filterName].forEach(item => {
+      item.selected = (req.cookies['selected_' + filterName] && req.cookies['selected_' + filterName].split('|').includes(item.type)) ? true : false;
+      res.clearCookie('selected_' + filterName);
+      if (item.selected) { selectedItems.push(item.type) };
     })
+    
+    if (selectedItems.length > 0) {
+      matchingCards = matchingCards.filter(card => selectedItems.map(item => item.toLowerCase()).includes(card[singularFilterNames[filterName]].toLowerCase()));
+    }
   });
+
+  if (searchTerm) {     
+    // Filter by search term
+    matchingCards = matchingCards.filter((card) => {
+      return searchKeys.some(key => {
+        if (card.hasOwnProperty(key)) {
+            return card[key].toLowerCase().includes(searchTerm.toLowerCase().trim());
+        }
+        return false;        
+      })
+    })
+  } else {
+    matchingCards = [];
+  }
+
+  res.render('index', {
+    rarities: filters['rarities'],
+    types: filters['types'],
+    standardSets: filters['sets'].filter(set => set.format === 'standard'),
+    wildSets: filters['sets'].filter(set => set.format === 'wild'),
+    matchingCards,
+    searchTerm,
+    helpers: {
+      titleCaseWord: (string) => string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
+    }
+  })
+});
 
   router.post('/submit', function(req, res) {
     console.log('req.body', req.body) 

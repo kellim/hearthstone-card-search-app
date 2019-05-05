@@ -4,7 +4,7 @@
     <label for="rarities" class="input-title">Rarity</label>
     <select form="search" id="rarities" name="rarities" multiple>
       {{#each rarities}}
-        <option value={{this.rarity}} {{#if this.selected}}selected{{/if}}>{{titleCaseWord this.rarity}}</option>
+        <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{titleCaseWord this.type}}</option>
       {{/each}}
     </select>
     <label for="types" class="input-title">Type</label>
@@ -17,12 +17,12 @@
     <select form="search" id="sets" name="sets" multiple>
       <optgroup label="Standard Sets (also Wild)">
       {{#each standardSets}}
-        <option value={{this.code}} {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+        <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
       {{/each}}
       </optgroup>
       <optgroup label="Wild Only Sets">
         {{#each wildSets}}
-          <option value={{this.code}} {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+          <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
         {{/each}}
       </optgroup>
     </select>
