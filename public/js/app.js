@@ -3,13 +3,17 @@
 const SlimSelect = require('slim-select');
 
 new SlimSelect({
-    select: '#rarities'
+  select: '#rarities'
 });
 
 new SlimSelect({
-    select: '#types'
+  select: '#types'
 });
 
 new SlimSelect({
-    select: '#sets'
+  select: '#classes'
+});
+
+new SlimSelect({
+  select: '#sets'
 });

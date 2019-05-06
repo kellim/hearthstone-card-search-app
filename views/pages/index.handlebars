@@ -13,6 +13,12 @@
         <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{titleCaseWord this.type}}</option>
       {{/each}}
     </select>
+    <label for="classes" class="input-title">Class</label>
+    <select form="search" id="classes" name="classes" multiple>
+      {{#each classes}}
+        <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{titleCaseWord this.type}}</option>
+      {{/each}}
+    </select>
     <label for="sets" class="input-title">Sets</label>
     <select form="search" id="sets" name="sets" multiple>
       <optgroup label="Standard Sets (also Wild)">

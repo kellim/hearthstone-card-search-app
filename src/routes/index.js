@@ -13,13 +13,16 @@ router.get('/', (req, res) => {
   const filters = {
     rarities: [{type: 'free'}, {type: 'common'}, {type:'rare'}, {type: 'epic'}, {type: 'legendary'}],
     types:  [{type: 'minion'}, {type: 'spell'}, {type: 'weapon'}],
+    classes: [{type: 'druid'}, {type: 'hunter'}, {type: 'mage'}, {type: 'paladin'}, {type: 'priest'},
+              {type: 'rogue'}, {type: 'shaman'}, {type: 'warlock'}, {type: 'warrior'}],
     sets: JSON.parse(JSON.stringify(sets))
   };
   const filterKeys = Object.keys(filters);
 
   const singularFilterNames = { rarities: 'rarity',
-                                types: 'type',
-                                sets: 'set' };
+                                types:    'type',
+                                classes:  'cardClass',
+                                sets:     'set' };                       
 
   // Get search term from cookie and delete cookie
   const searchTerm = req.cookies.search_term || '';
@@ -56,6 +59,7 @@ router.get('/', (req, res) => {
   res.render('index', {
     rarities: filters['rarities'],
     types: filters['types'],
+    classes: filters['classes'],
     standardSets: filters['sets'].filter(set => set.format === 'standard'),
     wildSets: filters['sets'].filter(set => set.format === 'wild'),
     matchingCards,
@@ -76,6 +80,7 @@ router.get('/', (req, res) => {
     const cookiesToSet = { search_term: req.body.search,
                            selected_rarities: getSelectedFilterItems('rarities'),
                            selected_types: getSelectedFilterItems('types'),
+                           selected_classes: getSelectedFilterItems('classes'),
                            selected_sets: getSelectedFilterItems('sets') };
     const cookiesNamesToSet = Object.keys(cookiesToSet);
 
@@ -85,14 +90,7 @@ router.get('/', (req, res) => {
         res.cookie(cookieName, cookiesToSet[cookieName], { maxAge: 60000, httpOnly: true });
         }
     });
-    // const searchTerm = req.body.search;
-    // const selectedRarities = Array.isArray(req.body.rarities) ? req.body.rarities.join('|') : req.body.rarities;
-    // const selectedTypes = Array.isArray(req.body.types) ? req.body.types.join('|') : req.body.types;
-    // const selectedSets = Array.isArray(req.body.sets) ? req.body.sets.join('|') : req.body.sets;
-    // if (searchTerm) res.cookie('search_term', searchTerm, { maxAge: 60000, httpOnly: true });
-    // if (selectedRarities) res.cookie('selected_rarities', selectedRarities, { maxAge: 60000, httpOnly: true });
-    // if (selectedTypes) res.cookie('selected_types', selectedTypes, { maxAge: 60000, httpOnly: true });
-    // if (selectedSets) res.cookie('selected_sets', selectedSets, { maxAge: 60000, httpOnly: true });
+
     res.redirect('/');
   });
 
