@@ -17,16 +17,15 @@ router.get('/', (req, res) => {
   };
   const filterKeys = Object.keys(filters);
 
-  // Filter arrays have plural names, and will need to be converted to be singular to match individual card properties
   const singularFilterNames = { rarities: 'rarity',
                                 types: 'type',
-                                sets: 'set' }
+                                sets: 'set' };
 
   // Get search term from cookie and delete cookie
   const searchTerm = req.cookies.search_term || '';
   res.clearCookie('search_term');
     
-     // Add selected property to filters based on selected items in cookies, then delete the cookies  
+  // Filter results (matchingCards) by search filters selected by user; it uses temporary cookies to get selected items.
   filterKeys.forEach(filterName => {
     let selectedItems = [];
     filters[filterName].forEach(item => {
@@ -45,7 +44,7 @@ router.get('/', (req, res) => {
     matchingCards = matchingCards.filter((card) => {
       return searchKeys.some(key => {
         if (card.hasOwnProperty(key)) {
-            return card[key].toLowerCase().includes(searchTerm.toLowerCase().trim());
+          return card[key].toLowerCase().includes(searchTerm.toLowerCase().trim());
         }
         return false;        
       })
@@ -67,16 +66,33 @@ router.get('/', (req, res) => {
   })
 });
 
+  // The purpose of this route is to process the search form. It will set temporary cookies with the 
+  // search term and selected filter items so the data can be passed to the get '/' view. Using post
+  // because it would be an overwhelming amount of query strings in the URL otherwise.
   router.post('/submit', function(req, res) {
-    console.log('req.body', req.body) 
-    const searchTerm = req.body.search;
-    const selectedRarities = Array.isArray(req.body.rarities) ? req.body.rarities.join('|') : req.body.rarities;
-    const selectedTypes = Array.isArray(req.body.types) ? req.body.types.join('|') : req.body.types;
-    const selectedSets = Array.isArray(req.body.sets) ? req.body.sets.join('|') : req.body.sets;
-    if (searchTerm) res.cookie('search_term', searchTerm, { maxAge: 60000, httpOnly: true });
-    if (selectedRarities) res.cookie('selected_rarities', selectedRarities, { maxAge: 60000, httpOnly: true });
-    if (selectedTypes) res.cookie('selected_types', selectedTypes, { maxAge: 60000, httpOnly: true });
-    if (selectedSets) res.cookie('selected_sets', selectedSets, { maxAge: 60000, httpOnly: true });
+    console.log('req.body', req.body);
+    const getSelectedFilterItems = filter => Array.isArray(req.body[filter]) ? req.body[filter].join('|') : req.body[filter];
+
+    const cookiesToSet = { search_term: req.body.search,
+                           selected_rarities: getSelectedFilterItems('rarities'),
+                           selected_types: getSelectedFilterItems('types'),
+                           selected_sets: getSelectedFilterItems('sets') };
+    const cookiesNamesToSet = Object.keys(cookiesToSet);
+
+   
+    cookiesNamesToSet.forEach(cookieName => {
+      if (cookiesToSet[cookieName]) {
+        res.cookie(cookieName, cookiesToSet[cookieName], { maxAge: 60000, httpOnly: true });
+        }
+    });
+    // const searchTerm = req.body.search;
+    // const selectedRarities = Array.isArray(req.body.rarities) ? req.body.rarities.join('|') : req.body.rarities;
+    // const selectedTypes = Array.isArray(req.body.types) ? req.body.types.join('|') : req.body.types;
+    // const selectedSets = Array.isArray(req.body.sets) ? req.body.sets.join('|') : req.body.sets;
+    // if (searchTerm) res.cookie('search_term', searchTerm, { maxAge: 60000, httpOnly: true });
+    // if (selectedRarities) res.cookie('selected_rarities', selectedRarities, { maxAge: 60000, httpOnly: true });
+    // if (selectedTypes) res.cookie('selected_types', selectedTypes, { maxAge: 60000, httpOnly: true });
+    // if (selectedSets) res.cookie('selected_sets', selectedSets, { maxAge: 60000, httpOnly: true });
     res.redirect('/');
   });
 
