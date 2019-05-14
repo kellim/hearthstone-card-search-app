@@ -48,9 +48,9 @@ If any new card sets have been added to cards in `data/cards.json` that aren't y
 
 Example:
 ```
-  {"code": "UNGORO",
-   "name": "Journey to Un'goro"
-  }
+{"type": "DALARAN",
+ "name": "Rise of Shadows",
+ "format": "standard"}
   ```
 
 Once any sets have been manually added, delete `data/card-sets-to-manually-add.json` so a message won't be logged about it when starting up the app.
