@@ -23,7 +23,7 @@ axios.get(cardUrl).then((response) => {
 const updateCards = (cards) => {
   cards.forEach(card => {
     // Add set name to card
-    const set = setsData.filter(set => set.code === card.set);
+    const set = setsData.filter(set => set.type === card.set);
     card.setName = set[0].name;
     if (card.text) {
       // strong and em should be only html tags in text from api, convert b and i tags to those
