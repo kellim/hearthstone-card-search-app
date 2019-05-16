@@ -32,6 +32,12 @@
         {{/each}}
       </optgroup>
     </select>
+    <label for="mechanics" class="input-title">Mechanics</label>
+    <select form="search" id="mechanics" name="mechanics" multiple>
+      {{#each mechanics}}
+        <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+      {{/each}}
+    </select>
   </div>
   <div class="search-wrapper">
     <form action="/submit" method="post" id="search" role="search" class="search-form">

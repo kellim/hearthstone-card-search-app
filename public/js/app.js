@@ -17,3 +17,7 @@ new SlimSelect({
 new SlimSelect({
   select: '#sets'
 });
+
+new SlimSelect({
+  select: '#mechanics'
+});

@@ -55,6 +55,19 @@ Example:
 
 Once any sets have been manually added, delete `data/card-sets-to-manually-add.json` so a message won't be logged about it when starting up the app.
 
+### Update Mechanics
+
+Also, each new expansion often adds new mechanics. To add any new mechanics to the "Mechanics" filter, add the new mechanic to the array in `data/mechanics-list.json`.
+
+Example:
+```
+  {"type": "TWINSPELL",
+   "name": "Twinspell"}
+```
+Note that `"type"` is what the API calls the mechanic, and name is the name to display in the filter. Sometimes, unfortunately the name the API gives it isn't the correct name, for instance it calls the Magnetic mechanic "Modular". 
+
+You can get a list of mechanics by running `npm run updateMechanics` which will put all unique mechanics from cards in `data/cards.json` in `mechanics-list-raw.json` and you could look through that file to figure it out. Note that I don't use all the mechanics in that file in the filter (See comment at the top of `mechanics-list-raw.json` for more info.)
+
 ## Browser Compatibility
 
 IE is not currently supported.

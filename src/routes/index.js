@@ -7,22 +7,27 @@ const router = express.Router();
 const setsFilePath = path.join(__dirname, '../../data/card-sets.json');
 const sets = JSON.parse(fs.readFileSync(setsFilePath, 'utf-8'));
 
+const mechanicsFilePath = path.join(__dirname, '../../data/mechanics-list.json');
+const mechanics = JSON.parse(fs.readFileSync(mechanicsFilePath, 'utf-8'));
+
 router.get('/', (req, res) => {
   let matchingCards = req.app.locals.cardsData;
   const searchKeys = ['race', 'name', 'text', 'rarity'];
   const filters = {
     rarities: [{type: 'free'}, {type: 'common'}, {type:'rare'}, {type: 'epic'}, {type: 'legendary'}],
     types:  [{type: 'minion'}, {type: 'spell'}, {type: 'weapon'}],
-    classes: [{type: 'druid'}, {type: 'hunter'}, {type: 'mage'}, {type: 'paladin'}, {type: 'priest'},
+    classes: [{type: 'neutral'}, {type: 'druid'}, {type: 'hunter'}, {type: 'mage'}, {type: 'paladin'}, {type: 'priest'},
               {type: 'rogue'}, {type: 'shaman'}, {type: 'warlock'}, {type: 'warrior'}],
-    sets: JSON.parse(JSON.stringify(sets))
+    sets: JSON.parse(JSON.stringify(sets)),
+    mechanics: JSON.parse(JSON.stringify(mechanics))
   };
   const filterKeys = Object.keys(filters);
 
-  const singularFilterNames = { rarities: 'rarity',
-                                types:    'type',
-                                classes:  'cardClass',
-                                sets:     'set' };                       
+  const apiFilterName = { rarities: 'rarity',
+                          types:    'type',
+                          classes:  'cardClass',
+                          sets:     'set',
+                          mechanics: 'mechanics' };                       
 
   // Get search term from cookie and delete cookie
   const searchTerm = req.cookies.search_term || '';
@@ -38,7 +43,9 @@ router.get('/', (req, res) => {
     })
     
     if (selectedItems.length > 0) {
-      matchingCards = matchingCards.filter(card => selectedItems.map(item => item.toLowerCase()).includes(card[singularFilterNames[filterName]].toLowerCase()));
+      matchingCards = matchingCards.filter(card => {
+        return card.hasOwnProperty(apiFilterName[filterName]) ? selectedItems.some(item => card[apiFilterName[filterName]].includes(item.toUpperCase())) : false;
+      })
     }
   });
 
@@ -62,6 +69,7 @@ router.get('/', (req, res) => {
     classes: filters['classes'],
     standardSets: filters['sets'].filter(set => set.format === 'standard'),
     wildSets: filters['sets'].filter(set => set.format === 'wild'),
+    mechanics: filters['mechanics'],
     matchingCards,
     searchTerm,
     helpers: {
@@ -81,7 +89,8 @@ router.get('/', (req, res) => {
                            selected_rarities: getSelectedFilterItems('rarities'),
                            selected_types: getSelectedFilterItems('types'),
                            selected_classes: getSelectedFilterItems('classes'),
-                           selected_sets: getSelectedFilterItems('sets') };
+                           selected_sets: getSelectedFilterItems('sets'),
+                           selected_mechanics: getSelectedFilterItems('mechanics') };
     const cookiesNamesToSet = Object.keys(cookiesToSet);
 
    

@@ -8,7 +8,8 @@
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "getCards": "node src/utils/get-cards.js",
-    "updateSets": "node src/utils/update-card-sets.js"
+    "updateSets": "node src/utils/update-card-sets.js",
+    "updateMechanics": "node src/utils/update-mechanics-list.js"
   },
   "keywords": [],
   "author": "",
