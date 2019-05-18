@@ -68,6 +68,10 @@ Note that `"type"` is what the API calls the mechanic, and name is the name to d
 
 You can get a list of mechanics by running `npm run updateMechanics` which will put all unique mechanics from cards in `data/cards.json` in `mechanics-list-raw.json` and you could look through that file to figure it out. Note that I don't use all the mechanics in that file in the filter (See comment at the top of `mechanics-list-raw.json` for more info.)
 
+### Update Tribes
+
+When and if a new tribe (ie. dragon, murloc, mech, etc) is added to cards, run `npm run updateTribes` to update the tribes that you can filter by.
+
 ## Browser Compatibility
 
 IE is not currently supported.
