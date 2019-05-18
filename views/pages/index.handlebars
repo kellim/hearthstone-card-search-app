@@ -1,21 +1,27 @@
 <h1>Unofficial HearthStone Card App</h1>
 <div class="wrapper">
   <div class="sidebar">
-    <label for="rarities" class="input-title">Rarity</label>
+    <label for="rarities" class="input-title">Rarities</label>
     <select form="search" id="rarities" name="rarities" multiple>
       {{#each rarities}}
         <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{titleCaseWord this.type}}</option>
       {{/each}}
     </select>
-    <label for="types" class="input-title">Type</label>
+    <label for="types" class="input-title">Types</label>
     <select form="search" id="types" name="types" multiple>
       {{#each types}}
         <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{titleCaseWord this.type}}</option>
       {{/each}}
     </select>
-    <label for="classes" class="input-title">Class</label>
+    <label for="classes" class="input-title">Classes</label>
     <select form="search" id="classes" name="classes" multiple>
       {{#each classes}}
+        <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{titleCaseWord this.type}}</option>
+      {{/each}}
+    </select>
+    <label for="tribes" class="input-title">Tribes</label>
+    <select form="search" id="tribes" name="tribes" multiple>
+      {{#each tribes}}
         <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{titleCaseWord this.type}}</option>
       {{/each}}
     </select>

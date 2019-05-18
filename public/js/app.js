@@ -21,3 +21,7 @@ new SlimSelect({
 new SlimSelect({
   select: '#mechanics'
 });
+
+new SlimSelect({
+  select: '#tribes'
+});
