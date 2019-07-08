@@ -57,6 +57,11 @@ h1 {
   margin-left: 1rem;
 }
 
+.search-error {
+  margin-top: .75rem;
+  color: red;
+}
+
 .results {
   display: flex;
   justify-content: left;

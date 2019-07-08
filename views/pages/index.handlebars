@@ -27,12 +27,12 @@
     </select>
     <label for="sets" class="input-title">Sets</label>
     <select form="search" id="sets" name="sets" multiple>
-      <optgroup label="Standard Sets (also Wild)">
+      <optgroup label="Standard Sets">
       {{#each standardSets}}
         <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
       {{/each}}
       </optgroup>
-      <optgroup label="Wild Only Sets">
+      <optgroup label="Wild Sets (Standard Sets above can also be used in Wild)">
         {{#each wildSets}}
           <option value={{this.type}} {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
         {{/each}}
@@ -51,6 +51,9 @@
       <input type="search" id="card-search-input" class="search-input" name="search" value="{{searchTerm}}">
       <button type="submit" class="search-button">Search</button>
     </form>
+      {{#if this.searchError}}
+        <div class="search-error">{{this.searchError}}</div>
+      {{/if}}
       <div class="results">
         {{#each matchingCards}}
           <img src="https://art.hearthstonejson.com/v1/render/latest/enUS/256x/{{this.id}}.png" alt="{{this.name}}" class="card-image">

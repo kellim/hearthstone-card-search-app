@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 
@@ -58,6 +59,9 @@ router.get('/', (req, res) => {
     }
   });
 
+  searchError = req.cookies['search_error'];
+  res.clearCookie('search_error');
+
   if (searchTerm) {     
     // Filter by search term
     matchingCards = matchingCards.filter((card) => {
@@ -82,6 +86,7 @@ router.get('/', (req, res) => {
     tribes: filters['tribes'],
     matchingCards,
     searchTerm,
+    searchError,
     helpers: {
       titleCaseWord: (string) => string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
     }
@@ -91,8 +96,15 @@ router.get('/', (req, res) => {
   // The purpose of this route is to process the search form. It will set temporary cookies with the 
   // search term and selected filter items so the data can be passed to the get '/' view. Using post
   // because it would be an overwhelming amount of query strings in the URL otherwise.
-  router.post('/submit', function(req, res) {
+  router.post('/submit', [
+    check('search')
+    .matches(/^[a-z0-9 ]+$/i)
+    .withMessage('Please limit search term to alphanumeric characters and spaces.')
+  ], 
+  function(req, res) {
     console.log('req.body', req.body);
+    const errors = validationResult(req).mapped();
+    const searchError = errors['search'] ? errors['search'].msg : '';
     const getSelectedFilterItems = filter => Array.isArray(req.body[filter]) ? req.body[filter].join('|') : req.body[filter];
 
     const cookiesToSet = { search_term: req.body.search,
@@ -109,7 +121,9 @@ router.get('/', (req, res) => {
         res.cookie(cookieName, cookiesToSet[cookieName], { maxAge: 60000, httpOnly: true });
         }
     });
-
+    if (searchError) {
+      res.cookie('search_error', searchError, { maxAge: 60000, httpOnly: true });
+    }
     res.redirect('/');
   });
 
