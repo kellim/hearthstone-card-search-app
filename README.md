@@ -40,11 +40,7 @@ npm run start
 
 After a new card expansion comes out (or any time you know of an update being made to cards) run `npm run getCards` to save card data from the HearthstoneJSON API to `data/cards.json`.
 
-### Update Card Set Names
-
-After a new expansion comes out, first follow instructions in "Update Card Data" above. 
-Then, run `npm run updateSets` to find out the set code for the new expansion.
-If any new card sets have been added to cards in `data/cards.json` that aren't yet in `data/card-sets.json`, a message will be logged to the console with set codes for sets that need to be manually added to `data/card-sets.json`. To manually add a set, you'll need to first find the full set name that goes with the set code and then add an item to the array:
+If any new card sets have been added to the game that aren't yet in `data/card-sets.json`, a message will be logged to the console with set codes for sets that need to be manually added to `data/card-sets.json`. To manually add a set, you'll need to first [find the full set name](https://playhearthstone.com/en-us/expansions-adventures/) that goes with the set code and then add an item to the array:
 
 Example:
 ```
@@ -53,11 +49,11 @@ Example:
  "format": "standard"}
   ```
 
-Once any sets have been manually added, delete `data/card-sets-to-manually-add.json` so a message won't be logged about it when starting up the app.
+Once any new sets have been manually added, delete `data/card-sets-to-manually-add.json` and rerun `npm run getCards` again.
 
 ### Update Mechanics
 
-Also, each new expansion often adds new mechanics. To add any new mechanics to the "Mechanics" filter, add the new mechanic to the array in `data/mechanics-list.json`.
+Each new expansion normally adds some cards featuring new mechanics. To add any new mechanics to the "Mechanics" filter, add the new mechanic to the array in `data/mechanics-list.json`.
 
 Example:
 ```
