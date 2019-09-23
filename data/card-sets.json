@@ -1,4 +1,7 @@
 [
+  {"type": "ULDUM",
+   "name": "Saviors of Uldum",
+   "format": "standard"},
   {"type": "DALARAN",
     "name": "Rise of Shadows",
     "format": "standard"},

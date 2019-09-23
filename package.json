@@ -8,7 +8,7 @@
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "getCards": "node src/utils/get-cards.js",
-    "updateSets": "node src/utils/update-card-sets.js",
+    "checkSets": "node src/utils/check-card-sets.js",
     "updateMechanics": "node src/utils/update-mechanics-list.js",
     "updateTribes": "node src/utils/update-tribes-list.js"
   },

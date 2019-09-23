@@ -6,7 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-
+const checkForNewCardSets = require('./check-card-sets');
 // This API doesn't require a key, and you can only retrieve all the cards at once. 
 const cardUrl = 'https://api.hearthstonejson.com/v1/latest/enUS/cards.collectible.json'
 const dataDir = path.join(__dirname, '../../data');
@@ -15,8 +15,15 @@ const setsData = JSON.parse(fs.readFileSync(setsFilePath, 'utf-8'));
 
  // Get card data from HearthstoneJSON API
 axios.get(cardUrl).then((response) => {
-  const updatedCards = updateCards(response.data);
-  saveCardData(JSON.stringify(updatedCards));
+  // Check for new card sets before updating cards. If there's a new set, it has 
+  // to be manually added to data/card-sets.json. It isn't automatic because the 
+  // set codes sometimes don't match the new set name exactly.
+  if (checkForNewCardSets(response.data)) {
+    console.log('There was an issue saving card data.');
+  } else {
+    const updatedCards = updateCards(response.data);
+    saveCardData(JSON.stringify(updatedCards));
+  }
 })
 
 // Add set name to cards and fix formatting issues
@@ -25,6 +32,7 @@ const updateCards = (cards) => {
     // Add set name to card
     const set = setsData.filter(set => set.type === card.set);
     card.setName = set[0].name;
+      
     if (card.text) {
       // strong and em should be only html tags in text from api, convert b and i tags to those
       card.text = card.text.replace(/</g, '&lt;')

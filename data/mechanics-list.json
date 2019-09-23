@@ -60,6 +60,8 @@
   {"type": "TWINSPELL",
     "name": "Twinspell"},
   {"type": "WINDFURY",
-    "name": "Windfury"}
+    "name": "Windfury"},
+  {"type": "REBORN",
+   "name": "Reborn"}
 ]
 

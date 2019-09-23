@@ -8,7 +8,7 @@ const app = express();
 
 const routes = require('./routes');
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 // Setup Handlebars
 app.set('views', path.join(__dirname, '../views/pages'));
