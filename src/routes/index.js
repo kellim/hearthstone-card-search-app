@@ -132,9 +132,4 @@ router.get('/', csurfProtection, (req, res) => {
     res.redirect('/');
   });
 
-// This route is for testing purposes/reference, to be removed later
-router.get('/json', (req, res) => {
-    res.send(req.app.locals.cardsData);
-});
-
 module.exports = router;
