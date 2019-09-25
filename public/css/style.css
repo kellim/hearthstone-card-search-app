@@ -125,6 +125,17 @@ select {
   font-size: 1.5rem;
 }
 
+/* Helps fix FOUC */
+.no-js {
+ visibility: hidden;
+ opacity: 0;
+}
+
+.js {
+ visibility: visible;
+ opacity: 1;
+}
+
 @media (min-width: 56.25em) {
   main {
     min-height: calc(100vh - 2rem);
