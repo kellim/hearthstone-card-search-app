@@ -4,6 +4,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
 
 const app = express();
 const routes = require('./routes');
@@ -25,6 +26,7 @@ app.use('/vendor', express.static(slimSelectPath));
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
+app.use(helmet());
 
 // Log message to console if there's a set that hasn't been added to data/card-sets.json yet. Sets have to be manually
 // added to that file.
