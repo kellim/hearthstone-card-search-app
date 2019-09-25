@@ -42,7 +42,7 @@ npm run start
 
 After a new card expansion comes out (or any time you know of an update being made to cards) run `npm run getCards` to save card data from the HearthstoneJSON API to `data/cards.json`.
 
-If any new card sets have been added to the game that aren't yet in `data/card-sets.json`, a message will be logged to the console with set codes for sets that need to be manually added to it. To manually add a set, you'll need to first [find the full set name](https://playhearthstone.com/en-us/expansions-adventures/) that goes with the set code and then add an item to the array in `data/card-sets.json`:
+If any new card sets have been added to the game that aren't yet in `data/card-sets.json`, a message will be logged to the console with set codes for sets that need to be manually added to it. To manually add a set, you'll need to first [find the full set name](https://playhearthstone.com/en-us/expansions-adventures/) that goes with the set code and then add an item to the array in `data/card-sets.json` (Put the set code as the value for "type"):
 
 Example:
 ```
