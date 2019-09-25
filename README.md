@@ -1,6 +1,8 @@
-# Hearthstone Card App
+# Hearthstone Card Search App
 
-This app is currently in development, but once the MVP is complete, you'll be able to search Hearthstone® cards and filter by class, type, set, and rarity.
+This Node.js/Express app uses the [HearthstoneJSON API](https://hearthstonejson.com/) and lets you search Hearthstone® cards and filter by multiple classes, sets, types, rarities, tribes, and mechanics.
+
+_[Hearthstone](https://playhearthstone.com) is an online collectible card game by Blizzard and I'm not associated with them but have created this app in accordance to policy in the [Blizzard FAQ](http://us.blizzard.com/en-us/company/about/legal-faq.html)._
 
 ## Run App in Local Environment
 
@@ -83,19 +85,6 @@ Known issues with IE:
 * [Express](https://expressjs.com/)
 * [HearthstoneJSON API](https://hearthstonejson.com/)
 
-## TODO
-
-**MVP:**  
-* Implement functionality in `get-card-json.js` to retrieve data from the HearthstoneJSON API and save it to a file.
-* Implement Searching cards on the website.
-* Implement search result filtering for different options:
-  * class
-  * type
-  * set
-  * rarity
-
-Future enhacements may include loading a deck in from a deck code supplied by the game, saving decks and retrieving your saved decks (this would require logging in).  
-
 ## License
 
 Code is licensed under the MIT License. 
@@ -105,4 +94,3 @@ Note that if you use Blizzard trademarks in association with the code, it's up t
 ## Trademark Info
 
 Hearthstone is a trademark or registered trademark of Blizzard Entertainment, Inc., in the U.S. and/or other countries.
-I'm not associated with Blizzard, Inc. but have created this app in accordance to policy in the [Blizzard FAQ](http://us.blizzard.com/en-us/company/about/legal-faq.html). 
