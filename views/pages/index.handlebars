@@ -47,6 +47,7 @@
   </div>
   <div class="search-wrapper">
     <form action="/submit" method="post" id="search" role="search" class="search-form">
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
       <!-- <label for="card-search-input">Search for Cards</label> -->
       <input type="search" id="card-search-input" class="search-input" name="search" value="{{searchTerm}}">
       <button type="submit" class="search-button">Search</button>

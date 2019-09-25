@@ -2,8 +2,12 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const { check, validationResult } = require('express-validator');
+const csurf = require('csurf');
 
 const router = express.Router();
+
+const csurfProtection = csurf({ cookie: true });
+router.use(csurfProtection);
 
 const setsFilePath = path.join(__dirname, '../../data/card-sets.json');
 const sets = JSON.parse(fs.readFileSync(setsFilePath, 'utf-8'));
@@ -18,7 +22,7 @@ tribes.forEach((tribe, i) => {
   tribes[i] = {type: tribe.toLowerCase()};
 })
 
-router.get('/', (req, res) => {
+router.get('/', csurfProtection, (req, res) => {
   let matchingCards = req.app.locals.cardsData;
   const searchKeys = ['race', 'name', 'text', 'rarity'];
   const filters = {
@@ -87,6 +91,7 @@ router.get('/', (req, res) => {
     matchingCards,
     searchTerm,
     searchError,
+    csrfToken: req.csrfToken(),
     helpers: {
       titleCaseWord: (string) => string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
     }
@@ -97,12 +102,12 @@ router.get('/', (req, res) => {
   // search term and selected filter items so the data can be passed to the get '/' view. Using post
   // because it would be an overwhelming amount of query strings in the URL otherwise.
   router.post('/submit', [
+    csurfProtection,
     check('search')
     .matches(/^[a-z0-9 ]+$/i)
     .withMessage('Please limit search term to alphanumeric characters and spaces.')
   ], 
   function(req, res) {
-    console.log('req.body', req.body);
     const errors = validationResult(req).mapped();
     const searchError = errors['search'] ? errors['search'].msg : '';
     const getSelectedFilterItems = filter => Array.isArray(req.body[filter]) ? req.body[filter].join('|') : req.body[filter];

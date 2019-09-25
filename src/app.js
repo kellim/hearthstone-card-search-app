@@ -4,10 +4,9 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+
 const app = express();
-
 const routes = require('./routes');
-
 const port = process.env.PORT || 3000;
 
 // Setup Handlebars
@@ -22,6 +21,7 @@ app.set('view engine', 'handlebars');
 
 const slimSelectPath = path.join(__dirname, '../node_modules/slim-select/dist');
 app.use('/vendor', express.static(slimSelectPath));
+
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
