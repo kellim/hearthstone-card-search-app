@@ -2,7 +2,7 @@
   "name": "hearthstone-card-search-app",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "./src/app.js",
   "scripts": {
     "build": "browserify public/js/app.js -o public/js/bundle.js",
     "start": "node src/app.js",
