@@ -4,6 +4,12 @@ This Node.js/Express app uses the [HearthstoneJSON API](https://hearthstonejson.
 
 _[Hearthstone](https://playhearthstone.com) is an online collectible card game by Blizzard and I'm not associated with them but have created this app in accordance to policy in the [Blizzard FAQ](http://us.blizzard.com/en-us/company/about/legal-faq.html)._
 
+## Demo
+
+Use the app online at https://hscardsearch.glitch.me/
+
+If you aren't familiar with Hearthstone, a couple things you can search for are "goblin" or "tree."
+
 ## Run App in Local Environment
 
 ### Initial Setup
@@ -51,7 +57,7 @@ Example:
  "format": "standard"}
   ```
 
-Once any new sets have been manually added, delete `data/card-sets-to-manually-add.json` and rerun `npm run getCards` again.
+Once any new sets have been manually added, delete `data/card-sets-to-manually-add.json` and rerun `npm run getCards`.
 
 ### Update Mechanics
 
