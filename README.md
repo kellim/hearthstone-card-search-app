@@ -8,8 +8,6 @@ _[Hearthstone](https://playhearthstone.com) is an online collectible card game b
 
 ![Hearthstone Card Search App - Animated gif demo](demo/demo.gif)
 
-View demo online at [hscardsearch.glitch.me](https://hscardsearch.glitch.me/)
-
 ## Run App in Local Environment
 
 ### Initial Setup
@@ -57,7 +55,7 @@ Example:
  "format": "standard"}
   ```
 
-Once any new sets have been manually added, delete `data/card-sets-to-manually-add.json` and rerun `npm run getCards` again.
+Once any new sets have been manually added, delete `data/card-sets-to-manually-add.json` and rerun `npm run getCards`.
 
 ### Update Mechanics
 
