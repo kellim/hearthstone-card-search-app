@@ -1,4 +1,7 @@
 [
+  {"type": "WILD_EVENT",
+   "name": "Doom in the Tomb Event",
+   "format": "standard"},
   {"type": "ULDUM",
    "name": "Saviors of Uldum",
    "format": "standard"},
