@@ -4,6 +4,12 @@ This Node.js/Express app uses the [HearthstoneJSON API](https://hearthstonejson.
 
 _[Hearthstone](https://playhearthstone.com) is an online collectible card game by Blizzard and I'm not associated with them but have created this app in accordance to policy in the [Blizzard FAQ](http://us.blizzard.com/en-us/company/about/legal-faq.html)._
 
+## Demo
+
+![Hearthstone Card Search App - Animated gif demo](demo/demo.gif)
+
+View demo online at [hscardsearch.glitch.me](https://hscardsearch.glitch.me/)
+
 ## Run App in Local Environment
 
 ### Initial Setup
