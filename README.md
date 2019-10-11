@@ -8,6 +8,8 @@ _[Hearthstone](https://playhearthstone.com) is an online collectible card game b
 
 ![Hearthstone Card Search App - Animated gif demo](demo/demo.gif)
 
+Demo the app online at [hscardsearch.glitch.me](https://hscardsearch.glitch.me/)
+
 ## Run App in Local Environment
 
 ### Initial Setup
