@@ -1,5 +1,7 @@
 # Hearthstone Card Search App
 
+I'm archiving this repo. Note that Blizzard now has an official HearthstoneJSON API, but since I'm no longer playing, I'm not going to convert it to use the new API.
+
 This Node.js/Express app uses the [HearthstoneJSON API](https://hearthstonejson.com/) and lets you search Hearthstone® cards and filter by multiple classes, sets, types, rarities, tribes, and mechanics.
 
 _[Hearthstone](https://playhearthstone.com) is an online collectible card game by Blizzard and I'm not associated with them but have created this app in accordance to policy in the [Blizzard FAQ](http://us.blizzard.com/en-us/company/about/legal-faq.html)._
@@ -7,8 +9,6 @@ _[Hearthstone](https://playhearthstone.com) is an online collectible card game b
 ## Demo
 
 ![Hearthstone Card Search App - Animated gif demo](demo/demo.gif)
-
-Demo the app online at [hscardsearch.glitch.me](https://hscardsearch.glitch.me/)
 
 ## Run App in Local Environment
 
